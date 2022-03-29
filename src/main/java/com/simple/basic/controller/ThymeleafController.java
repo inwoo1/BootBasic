@@ -148,4 +148,28 @@ public class ThymeleafController {
 		
 	}
 	
+	@GetMapping("/quiz01")
+	public String quiz01(Model model) {
+		
+		SimpleVO vo = SimpleVO.builder()
+							  .a(3)
+							  .first("김")
+							  .last("거북")
+							  .regdate( LocalDateTime.now())
+							  .build();
+							  
+		model.addAttribute("vo", vo);
+		return "view/quiz01";
+	}
+	
+	@GetMapping("/quiz01_result")
+	public String quiz01_result(@RequestParam("sno") int sno,
+								@RequestParam("name") String name,
+								Model model) {
+		
+		model.addAttribute("sno", sno);
+		model.addAttribute("name", name);
+		return "view/quiz01_result";
+	}
+	
 }
