@@ -43,8 +43,8 @@ public class MemoController {
 	
 	@PostMapping("/memoForm")
 	public String memoForm(@Valid MemoVO vo,
-						   RedirectAttributes RA,
 						   Errors errors,
+						   RedirectAttributes RA,
 						   Model model) {
 		
 		if(errors.hasErrors()) {
@@ -52,22 +52,16 @@ public class MemoController {
 			
 			for(FieldError err : list) {
 				
-				if(err.isBindingFailure()) {
-					
-					model.addAttribute("valid_" + err.getField(), "숫자로 입력하세요");
-				}else {
-					model.addAttribute("valid_" + err.getField(), err.getDefaultMessage());
-				}
+				model.addAttribute("valid_" + err.getField(), err.getDefaultMessage());//에러가뜨면 에러 메세지와 위치를 보냄
+				
 			}
-			
 			model.addAttribute("vo", vo);
-			return "memo/memoWrite";
-			
+			return "memo/memoWrite"; //실패시 작성화면으로
 			
 		}
 		memoService.write(vo);
 		RA.addFlashAttribute("list", vo);
-		return "redirect:/memo/memoList";
+		return "redirect:/memo/memoList"; //성공시 리스트화면으로
 	}
 	
 	@GetMapping("/memoList")

@@ -15,8 +15,8 @@
 				<td>연락처: [[${list.phone}]]</td>
 				<td>공개여부: [[${list.secret}]]</td>
 				<!-- if~else로 처리해주세요 -->
-				<td th:if="${list.secret == 'n'}" >비밀글입니다</td>
-				<td th:if="${list.secret == 'y'}">내용:[[${list.memo}]]</td>
+				<td th:if="${list.secret == 'y'}" >비밀글입니다</td>
+				<td th:unless="${list.secret == 'y'}">내용:[[${list.memo}]]</td>
 				
 			</tr>
 			
